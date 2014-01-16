@@ -123,7 +123,7 @@ public class JsonRepresentationWriter implements RepresentationWriter<String> {
             Map<String, Collection<ReadableRepresentation>> resourceMap = representation.getResourceMap();
 
             for (Map.Entry<String, Collection<ReadableRepresentation>> resourceEntry : resourceMap.entrySet()) {
-                if (resourceEntry.getValue().size() == 1 && !flags.contains(RepresentationFactory.SINGLE_ELEM_ARRAYS)) {
+                if ( !representation.isMultiValueExplicit() &&  resourceEntry.getValue().size() == 1 && !flags.contains(RepresentationFactory.SINGLE_ELEM_ARRAYS)) {
                     g.writeObjectFieldStart(resourceEntry.getKey());
                     ReadableRepresentation subRepresentation = resourceEntry.getValue().iterator().next();
                     renderJson(flags, g, subRepresentation, true);
